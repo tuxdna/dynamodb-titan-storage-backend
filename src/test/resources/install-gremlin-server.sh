@@ -22,10 +22,14 @@ mvn install
 export ARTIFACT_NAME="dynamodb-titan100-storage-backend"
 export TITAN_DYNAMODB_HOME=${PWD}
 export TITAN_DYNAMODB_TARGET=${TITAN_DYNAMODB_HOME}/target
-export TITAN_VERSION="1.0.0"
+#export TITAN_VERSION="1.0.0"
+export TITAN_VERSION="1.1.0-SNAPSHOT"
 export DYNAMODB_PLUGIN_VERSION="1.0.0"
-export TITAN_VANILLA_SERVER_DIRNAME=titan-${TITAN_VERSION}-hadoop1
-export TITAN_VANILLA_SERVER_ZIP=${TITAN_VANILLA_SERVER_DIRNAME}.zip
+#export TITAN_VANILLA_SERVER_DIRNAME=titan-${TITAN_VERSION}-hadoop1
+#export TITAN_VANILLA_SERVER_ZIP=${TITAN_VANILLA_SERVER_DIRNAME}.zip
+export TITAN_VANILLA_SERVER_DIRNAME=titan-${TITAN_VERSION}-hadoop2
+# make sure to update this with the correct path to the Titan zip
+export TITAN_VANILLA_SERVER_ZIP=/home/ubuntu/github/thinkaurelius/titan/titan-dist/titan-dist-hadoop-2/target/titan-1.1.0-SNAPSHOT-hadoop2.zip
 export TITAN_DYNAMODB_SERVER_DIRNAME=${ARTIFACT_NAME}-${DYNAMODB_PLUGIN_VERSION}-hadoop1
 export TITAN_SERVER_HOME=${TITAN_DYNAMODB_HOME}/server/${TITAN_DYNAMODB_SERVER_DIRNAME}
 export TITAN_DYNAMODB_SERVER_ZIP=${TITAN_DYNAMODB_SERVER_DIRNAME}.zip
@@ -43,12 +47,13 @@ export TITAN_SERVER_SERVICE_SH=${TITAN_SERVER_BIN}/gremlin-server-service.sh
 #download the server products
 mkdir -p ${TITAN_DYNAMODB_HOME}/server
 pushd ${TITAN_DYNAMODB_HOME}/server
-curl -s -O http://s3.thinkaurelius.com/downloads/titan/${TITAN_VANILLA_SERVER_ZIP}
+#using locally-built zip, so no download
+#curl -s -O http://s3.thinkaurelius.com/downloads/titan/${TITAN_VANILLA_SERVER_ZIP}
 
 #unpack
 unzip -qq ${TITAN_VANILLA_SERVER_ZIP} -d ${TITAN_DYNAMODB_HOME}/server
 mv ${TITAN_VANILLA_SERVER_DIRNAME} ${TITAN_DYNAMODB_SERVER_DIRNAME}
-rm ${TITAN_VANILLA_SERVER_ZIP}
+#rm ${TITAN_VANILLA_SERVER_ZIP}
 
 #load extra dependencies
 mkdir -p ${TITAN_DYNAMODB_EXT_DIR}
